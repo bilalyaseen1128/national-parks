@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us with Slider Background</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+       body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #2e7d32;
+      padding: 10px 20px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* LINKS */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: #ffeb3b;
+    }
+
+    /* BUTTONS */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .login-btn {
+      background-color: #fff;
+      color: #2e7d32;
+    }
+
+    .signup-btn {
+      background-color: #ffeb3b;
+      color: #000;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    /* HAMBURGER ICON */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      transition: 0.3s;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links,
+      .nav-buttons {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #388e3c;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links.show,
+      .nav-buttons.show {
+        display: flex;
+      }
+
+      .nav-links li {
+        padding: 10px 0;
+      }
+
+      .nav-buttons a {
+        width: 80%;
+        margin: 5px auto;
+      }
+
+      #welcomeUser {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+      }
+    }
+
+    html, body {
+        height: 100%;
+        font-family: Arial, sans-serif;
+        overflow-x: hidden;
+    }
+
+    /* Slider background */
+    .slider {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .slide {
+        position: absolute;
+        width: 100%; height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+    }
+
+    .slide.active { opacity: 1; }
+
+    /* Container */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 120px);
+        padding: 20px;
+    }
+
+    form {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        background: #11391a;
+        border: none;
+        color: white;
+        font-size: 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.3s;
+    }
+
+    button:hover { background: #218838; }
+
+     /* Footer styling */
+  footer {
+    background-color: #0d2015;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+  }
+
+  .social-links {
+    margin-top: 15px;
+  }
+
+  .social-links a {
+    color: white;
+    font-size: 28px;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffd166;
+    transform: scale(1.2);
+  }
+
+  .footer-text {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #bbb;
+  }
+
+   
+
+    @media(max-width: 600px) {
+        .footer-container {
+            flex-direction: column;
+            text-align: center;
+        }
+        .footer-links { margin-bottom: 15px; }
+    }
+
+    /* Toast styles */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #96a098;
+        color:black;
+        padding: 15px 20px;
+        border-radius: 6px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.5s ease;
+        z-index: 9999;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+</head>
+<body>
+
+      <nav>
+    <div class="logo">
+      <img src="logo.jpg" alt="Park Logo">
+      <span>National Parks</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="top-parks.html">Top Parks</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navBtns">
+      <a href="#" class="btn login-btn" onclick="openForm('login')">Login</a>
+      <a href="#" class="btn signup-btn" onclick="openForm('signup')">Sign Up</a>
+    </div>
+
+    <div id="welcomeUser" style="color:#ffeb3b; font-weight:600; display:none;"></div>
+  </nav>
+
+<!-- Slider Background -->
+<div class="slider">
+    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80');"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1950&q=80');"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1950&q=80');"></div>
+</div>
+
+<!-- Contact Form -->
+<div class="container">
+    <form>
+        <h2>Contact Us</h2>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast">Thank you! Your message has been sent.</div>
+
+<!-- Footer -->
+ <footer>
+    <h3>Follow Us</h3>
+    <div class="social-links">
+      <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="footer-text">
+      © 2025 National Park Explorer | All Rights Reserved
+    </div>
+  </footer>
+
+<script>
+    // Slider
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function nextSlide() {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+    }
+    setInterval(nextSlide, 5000);
+
+    // Toast Function
+    const toast = document.getElementById('toast');
+    function showToast() {
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // Form submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showToast();  // ✅ Show toast instead of alert
+        this.reset(); // Clear form
+    });
+</script>
+
+</body>
+</html>

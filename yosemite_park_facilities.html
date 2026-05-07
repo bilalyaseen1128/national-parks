@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yosemite National Park Facilities</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: #f1c40f;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0;
+      color: #2c3e50;
+    }
+
+    .card-content p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Yosemite National Park - Facilities</h1>
+    <p>Top 5 Facilities Available for Visitors</p>
+  </header>
+
+  <div class="container">
+
+    <!-- 1.Visitor / Welcome Centres -->
+    <div class="card">
+      <img src="https://yosemite.org/wp-content/uploads/2020/12/welcome-center-rendering_plaza-exterior_feb2021_rhaa.jpg" alt="Visitor / Welcome Centres">
+      <div class="card-content">
+        <h3>Visitor / Welcome Centres </h3>
+        <p>The park features visitor centres where you can pick up maps, get advice from rangers, view exhibits about geology, history and wildlife. These are excellent first-stops to orient yourself for your visit. 
+National Park Service Arrive early to avoid crowds, and ask about any trail closures or shuttle info.</p>
+      </div>
+    </div>
+
+    <!-- 2. Lodging -->
+    <div class="card">
+      <img src="https://www.nps.gov/common/uploads/cropped_image/primary/75E27BAD-F0D7-A930-1E66C250AA33E119.jpg?mode=crop&quality=90&width=1600" alt="Lodging">
+      <div class="card-content">
+        <h3>Lodging</h3>
+        <p> Yosemite offers in-park lodging from upscale historic hotels (e.g., the iconic The Ahwahnee) to lodges and cabins. 
+National Park Service These accommodations often fill up well in advance — book early if staying overnight inside the park.</p>
+      </div>
+    </div>
+
+    <!-- 3. Campgrounds -->
+    <div class="card">
+      <img src="https://cdn.prod.website-files.com/60fcf231d39938bc2b792eb7/6720f949b444bef2db5d1ea9_best-campgrounds-in-yosemite.jpg" alt="Campgrounds">
+      <div class="card-content">
+        <h3>Campgrounds</h3>
+        <p>There are many campgrounds throughout the park accommodating tents and RVs, with varying degrees of amenities. Reservations are strongly recommended. 
+National Park Service. Choose a location depending on which part of the park you plan to explore (Valley vs High Country) and check facility details (e.g., water, bathrooms).</p>
+      </div>
+    </div>
+
+    <!-- 4. Picnic & Dining Areas -->
+    <div class="card">
+      <img src="https://www.yosemite.com/wp-content/uploads/2023/04/ahwahneedining-slide.jpg" alt="Dining Area">
+      <div class="card-content">
+        <h3>Dining Areas</h3>
+        <p>Within Yosemite Valley and other populated areas of the park you’ll find restaurants, cafés, stores, and other visitor services (retail, food & beverage, rentals). 
+National Park Service. For remote areas check opening seasons and hours — in less busy seasons some outlets may be limited.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Yellowstone National Park | Designed by Nature Lovers 🌲</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Navbar</title>
+
+  <style>
+    /* ===== Reset ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: beige;
+      height: 2000px; /* for scroll demo */
+    }
+
+    /* ===== Navbar Base ===== */
+    nav {
+      background-color: #2e4e27; /* Dark Green */
+      padding: 20px 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.4s ease-in-out;
+      opacity: 0;
+      transform: translateY(-25px);
+    }
+
+    /* Navbar visible animation */
+    nav.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Shrink Effect ===== */
+    nav.shrink {
+      padding: 10px 50px;
+      background-color: #26421f; /* slightly darker green when scrolled */
+      box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+
+    /* ===== Nav Links ===== */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 5px 0;
+    }
+
+    .nav-links a:hover {
+      color: #ffeb3b;
+    }
+
+    /* ===== Underline Animation ===== */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 3px;
+      background-color: #ffeb3b;
+      transition: width 0.3s ease-in-out;
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== Active Link ===== */
+    .nav-links a.active::after {
+      width: 100%;
+      background-color: #f6e96b;
+    }
+
+    .nav-links a.active {
+      color: #f6e96b;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      nav {
+        padding: 15px 25px;
+      }
+      .nav-links {
+        gap: 25px;
+      }
+      .nav-links a {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <ul class="nav-links">
+      <li><a href="index.html" >Home</a></li>
+      <li><a href="contact.html">Content</a></li>
+      <li><a href="#">TopParts</a></li>
+      <li><a href="#">History</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const links = document.querySelectorAll('.nav-links a');
+
+    // Show navbar on load
+    window.addEventListener('load', () => {
+      navbar.classList.add('visible');
+    });
+
+    // Shrink navbar on scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shrink');
+      } else {
+        navbar.classList.remove('shrink');
+      }
+    });
+
+    // Highlight active link
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

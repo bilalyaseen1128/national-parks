@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Acadia National Park | National Parks Explorer</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- ===== Inline CSS (self-contained page) ===== -->
+  <style>
+
+    /* RESET */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    html,body { height: 100%; }
+
+    /* THEME COLORS */
+    :root{
+      --dark-green: #074e3b;
+      --mid-green: #0d6d49;
+      --light-green: #e9f6ef;
+      --bg: #f4fbf7;
+      --accent: #ffd900; /* yellow hover */
+      --card-shadow: rgba(3, 40, 30, 0.12);
+    }
+
+    body {
+      background-color: beige;
+      color: #123;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }    /* ====== NAVBAR ====== */
+    nav {
+      background-color: #2e4e27;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px 70px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      width: 1900px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo img {
+      height: 70px;
+      width: auto;
+    }
+
+    .logo span {
+      color: #f6e96b;
+      font-size: 25px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 45px;
+      align-items: center;
+      margin: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 22px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #f6e96b;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ====== LOGIN & SIGNUP BUTTONS ====== */
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: white;
+      padding:  8px 18px;
+      border-radius: 30px;
+      transition: 0.3s ease;
+      border: 2px solid transparent;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .login-btn {
+      background: #ffb300;
+      text-align: right;
+    }
+
+    .login-btn:hover {
+      background: transparent;
+      border-color: #ffb300;
+      color: #ffb300;
+    }
+
+    .signup-btn {
+      background: #e53935;
+      text-align: right;
+    }
+
+    .signup-btn:hover {
+      background: transparent;
+      border-color: #e53935;
+      color: #e53935;
+    }
+
+    /* ====== POPUP FORM ====== */
+    .popup-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .form-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .form-box h2 {
+      color: #2e4e27;
+      margin-bottom: 20px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #2e4e27;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-box button:hover {
+      background: #446c39;
+    }
+
+    .form-box p {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .form-box a {
+      color: #e53935;
+      text-decoration: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Popup Message */
+    .popup-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4caf50;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      display: none;
+      font-weight: 500;
+      z-index: 3000;
+      animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logout-btn {
+      color: white;
+      background: #e53935;
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      margin-left: 15px;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #b71c1c;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 15px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-buttons {
+        margin-top: 10px;
+      }
+    }
+
+
+  h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 60px;
+    font-style: italic;
+  }
+
+  h2 {
+    color: rgb(35, 71, 35);
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+  }
+
+  p {
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+    .logo a { color: #fff; text-decoration:none; font-weight:700; font-size:1.05rem; }
+    .menu { list-style:none; display:flex; gap:18px; align-items:center; }
+    .menu a { color: #f7fff8; text-decoration:none; font-weight:600; }
+    .menu a:hover { color: var(--accent); }
+
+    /* HERO: PARALLAX */
+    .hero {
+      height: 74vh;
+      min-height: 480px;
+      background-image: url("yellow.hero.jpg");
+      background-size: cover;
+      background-position: center 35%;
+      background-attachment: fixed;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      color:white;
+    }
+
+    .hero::after {
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.45));
+      z-index:0;
+    }
+    
+    .hero-inner {
+      position:relative; z-index:2; max-width:1100px; padding: 0 20px;
+    }
+    .hero h1 { font-size: clamp(28px,5vw,56px); line-height:1.02; margin-bottom:12px; font-weight:800; letter-spacing:-0.02em; }
+    .hero p { font-size: clamp(14px,1.6vw,18px); margin-bottom:18px; opacity:0.95; }
+    .hero #btn {
+      display:inline-block;
+      background:var(--mid-green);
+      color:white;
+      padding:12px 26px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:700;
+      transition:transform .18s ease, background .18s;
+      box-shadow: 0 6px 22px rgba(6,50,40,0.18);
+    }
+    .hero #btn:hover { background:var(--accent); color:var(--dark-green); transform: translateY(-3px); }
+
+    /* INTRO (image left / text right) */
+    .intro {
+      max-width:1100px; margin: 36px auto; padding: 28px 20px; display:grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items:center;
+    }
+    .intro .intro-img {
+      border-radius:12px; overflow:hidden; box-shadow:0 10px 30px var(--card-shadow);
+    }
+    .intro img { width:100%; display:block; height: 600px; object-fit:cover; min-height:220px; }
+    .intro .intro-text h2 { color:#074e3b; font-size:28px; margin-bottom:12px; }
+    .intro .intro-text p { color:#233; }
+ */
+   
+    /* FACILITIES FLIP CARDS (appear on button) */
+    .cards-wrap { max-width:1100px; margin: 24px auto 48px; padding: 0 20px; display:none; }
+    .cards-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .flip-card {
+      perspective: 1200px;
+      height: 550px;
+      position: relative;
+    }
+    .flip-inner {
+      position:relative; width:100%; height:100%; transition: transform 0.8s; transform-style: preserve-3d;
+    }
+    .flip-card:hover .flip-inner { transform: rotateY(180deg) translateZ(0); }
+    .flip-front, .flip-back {
+      position:absolute; inset:0; border-radius:12px; backface-visibility:hidden; overflow:hidden;
+      box-shadow: 0 8px 22px rgba(2,30,24,0.12);
+    }
+    .flip-front { background:#fff; display:flex; flex-direction:column; }
+    .flip-front img { width:100%; height:85%; object-fit:cover; display:block; }
+    .flip-front h3 { padding:12px; background:var(--dark-green); color:white; margin:0; font-size:1.05rem; }
+    .flip-back { transform: rotateY(180deg); padding:18px; background: linear-gradient(180deg,#eaffef,#f2fff5); color:var(--dark-green); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:10px; }
+
+    /* WILDLIFE INTRO (dark section) */
+    .wild-intro {
+      margin-top:36px;
+      background: linear-gradient(180deg,var(--dark-green), #0a5a43);
+      color:white;
+      padding: 40px 0;
+    }
+    .wild-inner { max-width:1100px; margin:0 auto; padding: 0 20px; display:flex; gap:22px; align-items:center; flex-wrap:wrap; }
+    .wild-left { flex:1 1 320px; min-width:260px; }
+    .wild-left img { width:100%; height: 600px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
+    .wild-right { flex:1 1 380px; color:#f5fff5; }
+    .wild-right h2 { font-size:1.8rem; color:var(--accent); margin-bottom:10px; }
+    .wild-right p { color: #e8f7ee; margin-bottom:16px; }
+
+    .wild-btn { display:inline-block; background:var(--accent); color:var(--dark-green); padding:12px 20px; border-radius:10px; font-weight:700; text-decoration:none; }
+    .wild-btn:hover { background:#fff; color:var(--mid-green); transform: translateY(-3px); }
+
+    /* FOOTER */
+    footer { background:var(--dark-green); color:#fff; text-align:center; padding:18px 8px; margin-top:28px; font-size:14px; }
+
+    /* UTILITIES & RESPONSIVE */
+    .center { text-align:center; }
+    @media (max-width: 960px){
+      .intro { grid-template-columns:1fr; gap:18px; padding:18px; }
+      .fac-grid { justify-content: center; }
+      .wild-inner { flex-direction:column; }
+      .nav { padding:10px; }
+    }
+    @media (max-width:520px){
+      .tile { width: 90%; }
+      .flip-front h3 { font-size:0.95rem; }
+      .hero h1 { font-size: clamp(22px,6vw,36px); }
+      .hero p { font-size:14px; }
+    }
+     /* ====== Map Section Styles ====== */
+    .map-section {
+      margin: 50px auto;
+      text-align: center;
+      margin-top:36px;
+      background: #074e3b;
+      color: yellow;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 900px;
+      position: relative;
+    }
+
+    .map-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color:#FFD54F ;
+    }
+
+    .map-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 15px;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease-in-out;
+    }
+    .heading {
+      color: yellow;
+    }
+
+    /* 🔍 Magnifying Glass Icon */
+    .magnify {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      display: none; /* Hidden until zoomed */
+      opacity: 0;
+    }
+
+    .magnify i {
+      font-size: 18px;
+      color: #111;
+    }
+
+    .magnify.show {
+      display: block;
+      opacity: 1;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .magnify:hover {
+      background: #f04c4c;
+    }
+
+    .magnify:hover i {
+      color: white;
+    }
+
+
+ /* Footer styling */
+  footer {
+    background-color: #0d2015;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+  }
+
+  .social-links {
+    margin-top: 15px;
+  }
+
+  .social-links a {
+    color: white;
+    font-size: 28px;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffd166;
+    transform: scale(1.2);
+  }
+
+  .footer-text {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #bbb;
+  }
+    /* h1 tag css */
+    h1{
+        color: whitesmoke;
+        text-align: center;
+        font-size: 60px;
+        font-style: italic;
+        
+    }
+
+    h2{
+        color: rgb(35, 71, 35);
+        text-align: center;
+        font-size: 40px;
+        font-style:italic;
+
+    }
+    p{
+        font-size: 25px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+  </style>
+</head>
+
+<body>
+
+   <!-- NAVBAR -->
+  <nav>
+    <div class="logo">
+      <img src="logo.jpg" alt="Park Logo">
+      <span>National Parks</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="top-parks.html">Top Parks</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navBtns">
+      <a href="#" class="btn login-btn" onclick="openForm('login')">Login</a>
+      <a href="#" class="btn signup-btn" onclick="openForm('signup')">Sign Up</a>
+    </div>
+
+    <div id="welcomeUser" style="color:#ffeb3b; font-weight:600; display:none;"></div>
+  </nav>
+
+  <!-- POPUP FORM -->
+  <div class="popup-container" id="popup">
+    <!-- LOGIN FORM -->
+    <div class="form-box" id="loginForm">
+      <span class="close-btn" onclick="closeForm()">×</span>
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="loginUser()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="toggleForm('signup')">Sign Up</a></p>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div class="form-box" id="signupForm" style="display:none;">
+      <span class="close-btn" onclick="closeForm()">×</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button onclick="signupUser()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
+    </div>
+  </div>
+
+  <!-- SUCCESS MESSAGE -->
+  <div class="popup-message" id="popupMessage"></div>
+
+  <script>
+    // Open popup
+    function openForm(type) {
+      document.getElementById('popup').style.display = 'flex';
+      document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = type === 'signup' ? 'block' : 'none';
+    }
+
+    // Close popup
+    function closeForm() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // Toggle between login and signup
+    function toggleForm(type) {
+      document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = type === 'signup' ? 'block' : 'none';
+    }
+
+    // Show popup message
+    function showMessage(msg, color = "#4caf50") {
+      const box = document.getElementById('popupMessage');
+      box.style.background = color;
+      box.textContent = msg;
+      box.style.display = 'block';
+      setTimeout(() => box.style.display = 'none', 3000);
+    }
+
+    // Signup Function
+    function signupUser() {
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+
+      if (!name || !email || !password) {
+        showMessage("Please fill all fields", "#e53935");
+        return;
+      }
+
+      const user = { name, email, password };
+      localStorage.setItem("userData", JSON.stringify(user));
+      showMessage("Signup Successful! Please Login.");
+      toggleForm('login');
+    }
+
+    // Login Function
+    function loginUser() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      const savedUser = JSON.parse(localStorage.getItem("userData"));
+
+      if (savedUser && savedUser.email === email && savedUser.password === password) {
+        localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
+        showWelcome(savedUser.name);
+        closeForm();
+        showMessage(`Welcome ${savedUser.name}!`);
+      } else {
+        showMessage("Invalid email or password!", "#e53935");
+      }
+    }
+
+    // Show welcome and hide login buttons
+    function showWelcome(name) {
+      document.getElementById('navBtns').style.display = 'none';
+      const welcome = document.getElementById('welcomeUser');
+      welcome.innerHTML = `Welcome, ${name}! 🌿 <button class="logout-btn" onclick="logoutUser()">Logout</button>`;
+      welcome.style.display = 'block';
+    }
+
+    // Logout function
+    function logoutUser() {
+      localStorage.removeItem("loggedInUser");
+      document.getElementById('welcomeUser').style.display = 'none';
+      document.getElementById('navBtns').style.display = 'flex';
+      showMessage("Logged out successfully.", "#e53935");
+    }
+
+    // Check login status on page load
+    window.onload = function() {
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (user) {
+        showWelcome(user.name);
+      }
+    }
+  </script>
+    </div>
+  </section>
+  <!-- HERO -->
+  <section class="hero" aria-label="Acadia hero image">
+    <div class="hero-inner">
+      <h1>Yala National Park</h1>
+      <p>Where the mountains meet the sea — cliffs, forests, and coastal views that inspire.</p>
+      <a id="btn" href="#facilitiesCards">START EXPLORING</a>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro" aria-labelledby="about-acadia">
+    <div class="intro-img">
+      <img src="yalahero.jpg" alt="Jordan Pond - Acadia">
+    </div>
+    <div class="intro-text">
+      <h2 id="about-acadia">Discover Yala</h2>
+      <p>Yala National Park on Maine’s coast protects rugged shoreline, granite peaks, and dazzling forests. Established in 1919, Acadia is known for Cadillac Mountain sunrises, scenic drives, and diverse habitats where birds, marine life, and forest mammals thrive.</p>
+      <p style="margin-top:12px; color:#2e4; font-weight:700;">Tip: Scroll down to see interactive previews for facilities and wildlife — then click the yellow buttons to reveal flip-card details.</p>
+    </div>
+  </section>
+
+
+  
+  <section class="map-section">
+  <h2>Geographical Location of Yala National Park</h2>
+  <div class="map-container">
+    <iframe 
+      id="yala-map"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63726.93770305558!2d81.3731!3d6.3668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae697d7a5671ad5%3A0x8cb4e3c289de163!2sYala%20National%20Park!5e0!3m2!1sen!2slk!4v1730753355!5m2!1sen!2slk"
+      allowfullscreen="" loading="lazy">
+    </iframe>
+    <div class="magnify" id="magnifyYala"><i class="fa-solid fa-magnifying-glass"></i></div>
+  </div>
+</section>
+  <script>
+    const mapFrame = document.getElementById('acadia-map');
+    const magnifyIcon = document.getElementById('magnifyIcon');
+
+    // Detect when user interacts with the map
+    mapFrame.addEventListener('mouseenter', () => {
+      magnifyIcon.classList.add('show');
+    });
+
+    mapFrame.addEventListener('mouseleave', () => {
+      magnifyIcon.classList.remove('show');
+    });
+
+    // Optional: click magnify to zoom the iframe slightly
+    magnifyIcon.addEventListener('click', () => {
+      mapFrame.style.transform = mapFrame.style.transform === 'scale(1.05)' ? 'scale(1)' : 'scale(1.05)';
+    });
+  </script>
+
+ <!-- facilities INTRO (contrasting dark section) -->
+  <section class="wild-intro">
+    <div class="wild-inner">
+      <div class="wild-left">
+        <img src="yalafacili.jpg" alt="Acadia facilities">
+      </div>
+      <div class="wild-right">
+        <h2 id="wild-heading">Explore Facilities</h2>
+        <p>
+       Offers a range of facilities for visitors, including guided safaris, night camping, bush walks, and wildlife photography experiences. These services provide comfort, safety, and unique opportunities to explore the park’s natural beauty up close.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACILITIES FLIP CARDS (hidden until click) -->
+  <div class="cards-wrap" id="facilitiesCards" aria-hidden="true">
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <div class="flip-card" role="article">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="bushwalk.jpg" alt="Camping Acadia">
+            <h3>Bush walking</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Bush walking</h3>
+            <p>
+Explore Yala’s wilderness on guided bush walks, where expert naturalists lead you through scenic trails to observe flora, fauna, and animal tracks up close.
+            </p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="flip-card" role="article">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="photographycamp.jpg" alt="Visitor Center Acadia">
+            <h3>Wildlife photography camp</h3>
+          </div>
+          <div class="flip-back">
+            <h3>wildlife photography camp</h3>
+            <p>
+Capture Yala’s stunning wildlife and landscapes with expert-guided photography tours, offering perfect opportunities to photograph leopards, elephants, and exotic birds in their natural habitat.
+            </p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="flip-card" role="article">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="nightsafari.jpg" alt="park loop road">
+            <h3>Night camp safari</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Night camp safari</h3>
+            <p>
+Experience the thrill of staying overnight in Yala’s wild under a starlit sky, with luxury tents, campfires, and guided night safaris. Enjoy the perfect mix of adventure and comfort amidst the sounds of nature.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WILDLIFE INTRO (contrasting dark section) -->
+  <section class="wild-intro" aria-labelledby="wild-heading">
+    <div class="wild-inner">
+      <div class="wild-left">
+        <img src="yalawild.jpg" alt="Acadia wildlife deer">
+      </div>
+      <div class="wild-right">
+        <h2 id="wild-heading">Explore Wildlife</h2>
+        <p>
+Yala National Park is home to an incredible diversity of wildlife, from majestic elephants and elusive leopards to colorful bird species. Its rich ecosystems offer visitors a thrilling chance to witness nature’s wonders up close in Sri Lanka’s most famous sanctuary.
+        </p>
+  
+      </div>
+    </div>
+  </section>
+
+
+  <div class="cards-wrap" id="facilitiesCards" aria-hidden="true">
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <div class="flip-card" role="article">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="ele.jpg" class="birds-img">
+            <h3>Elephant</h3>
+          </div>
+          <div class="flip-back">
+            <h3>SriLankan Elephant</h3>
+            <p>
+               Majestic and gentle, the Sri Lankan elephant roams freely in Yala’s grasslands and waterholes, symbolizing the park’s rich biodiversity and natural harmony.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="flip-card" role="article">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="samberdeeryala.jpg" alt="Visitor Center Acadia">
+            <h3>Samber Deer</h3>
+          </div>
+          <div class="flip-back">
+            <h3>Samber Deer</h3>
+            <p>   
+              The largest deer species in Sri Lanka, the sambar deer is a common sight in Yala, often grazing peacefully near lakes and attracting predators like leopards.
+            </p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="flip-card" role="article">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="sloth.jpg" img-class="wildlife.img">
+            <h3>Sloth beer</h3>
+          </div>
+          <div class="flip-back">
+          <h3>Sloth beer </h3>
+            <p>
+             The shy and nocturnal sloth bear of Yala is known for its shaggy coat and love for honey, often seen foraging
+              for fruits and termites in the park’s forests.
+            </p>
+          </div>
+        </div>
+  </div>
+    </div>
+  </div>
+
+<footer>
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="footer-text">
+        © 2025 National Park Explorer | All Rights Reserved
+      </div>
+    </footer>
+
+  <!-- ===== Inline JS ===== -->
+  <script>
+    // Basic smooth scroll for Start Exploring
+    document.querySelectorAll('.cta').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector('#facilities-preview');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Toggle facilities cards
+    const showFacilitiesBtn = document.getElementById('showFacilitiesBtn');
+    const facilitiesCards = document.getElementById('facilitiesCards');
+    showFacilitiesBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const open = facilitiesCards.style.display === 'grid' || facilitiesCards.style.display === 'block';
+      if (!open) {
+        facilitiesCards.style.display = 'grid';
+        facilitiesCards.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showFacilitiesBtn.setAttribute('aria-expanded','true');
+      } else {
+        facilitiesCards.style.display = 'none';
+        showFacilitiesBtn.setAttribute('aria-expanded','false');
+      }
+    });
+    // Toggle wildlife cards
+    const showWildBtn = document.getElementById('showWildBtn');
+    const wildCards = document.getElementById('wildCards');
+    showWildBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const open = wildCards.style.display === 'grid' || wildCards.style.display === 'block';
+      if (!open) {
+        wildCards.style.display = 'grid';
+        wildCards.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showWildBtn.setAttribute('aria-expanded','true');
+      } else {
+        wildCards.style.display = 'none';
+        showWildBtn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    // Make .cards-grid become grid when shown
+    (function observeLayout() {
+      const config = { childList: false, attributes: true, subtree: false };
+      const cb = function(mutationsList) {
+        // when display changes, set styles
+      };
+      // not strictly necessary here — kept for expansion
+    })();
+  </script>
+
+
+</body>
+</html>

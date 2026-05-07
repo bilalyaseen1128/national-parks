@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top National Parks</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Google Fonts -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* ====== NAVBAR ====== */
+      body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #2e7d32;
+      padding: 10px 20px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* LINKS */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: #ffeb3b;
+    }
+
+    /* BUTTONS */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .login-btn {
+      background-color: #fff;
+      color: #2e7d32;
+    }
+
+    .signup-btn {
+      background-color: #ffeb3b;
+      color: #000;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    /* HAMBURGER ICON */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      transition: 0.3s;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links,
+      .nav-buttons {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #388e3c;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links.show,
+      .nav-buttons.show {
+        display: flex;
+      }
+
+      .nav-links li {
+        padding: 10px 0;
+      }
+
+      .nav-buttons a {
+        width: 80%;
+        margin: 5px auto;
+      }
+
+      #welcomeUser {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+      }
+    }
+    .btn {
+      text-decoration: none;
+      color: white;
+      padding:  8px 18px;
+      border-radius: 30px;
+      transition: 0.3s ease;
+      border: 2px solid transparent;
+      font-weight: 500;
+    }
+
+    .login-btn {
+      background: #ffb300;
+    }
+
+    .login-btn:hover {
+      background: transparent;
+      border-color: #ffb300;
+      color: #ffb300;
+    }
+
+    .signup-btn {
+      background: #e53935;
+    }
+
+    .signup-btn:hover {
+      background: transparent;
+      border-color: #e53935;
+      color: #e53935;
+    }
+
+    /* ====== POPUP FORM ====== */
+    .popup-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .form-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .form-box h2 {
+      color: #2e4e27;
+      margin-bottom: 20px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #2e4e27;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-box button:hover {
+      background: #446c39;
+    }
+
+    .form-box p {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .form-box a {
+      color: #e53935;
+      text-decoration: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Popup Message */
+    .popup-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4caf50;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      display: none;
+      font-weight: 500;
+      z-index: 3000;
+      animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logout-btn {
+      color: white;
+      background: #e53935;
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      margin-left: 15px;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #b71c1c;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        padding: 15px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-buttons {
+        margin-top: 10px;
+      }
+    }
+    /* 🌍 Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background:  rgb(29, 44, 29);
+      color: #333;
+    background-color: #12311f;
+  }
+
+  h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 60px;
+    font-style: italic;
+  }
+
+  h2 {
+    color: rgb(35, 71, 35);
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+  }
+
+  p {
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .history-header {
+    background-image: url('background-history.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .history-content {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+
+  .park-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 25px;
+    margin: 40px auto;
+    width: 85%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .park-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+
+  .content-row, .park-heading, .acadia-heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .content-row img, .park-heading img, .acadia-heading img {
+    width: 450px;
+    height: 300px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .content-row img:hover,
+  .park-heading img:hover,
+  .acadia-heading img:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-container {
+    margin-top: 25px;
+  }
+
+  .explore-btn {
+    display: inline-block;
+    background-color: #1a4d2e;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .explore-btn:hover {
+    background-color: #ffd166;
+    color: #1a4d2e;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  /* Responsive layout */
+  @media (max-width: 900px) {
+    .content-row, .park-heading, .acadia-heading {
+      flex-direction: column;
+    }
+
+    .content-row img, .park-heading img, .acadia-heading img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+/* Footer styling */
+  footer {
+    background-color: #0d2015;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+  }
+
+  .social-links {
+    margin-top: 15px;
+  }
+
+  .social-links a {
+    color: white;
+    font-size: 28px;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffd166;
+    transform: scale(1.2);
+  }
+
+  .footer-text {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #bbb;
+  }
+
+    h1 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 50px;
+      margin-top: 40px;
+      color: white;
+    }
+
+    .parks-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      padding: 0 20px;
+    }
+
+    /* 🏞️ Park Section */
+    .park {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .park:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .park:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .park img {
+      width: 400px; 
+  height: 350px;
+  border-radius: 10px;
+    }
+
+    .park:hover img {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+
+    .park-content {
+      width: 55%;
+    }
+
+    .park-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      color: #1a4d2e;
+      margin-bottom: 10px;
+    }
+
+    .park-content p {
+      font-size: 16px;
+      line-height: 1.8;
+      text-align: justify;
+      color: #444;
+    }
+
+   
+    
+
+    /*  Responsive */
+    @media (max-width: 900px) {
+      .park {
+        flex-direction: column;
+      }
+      .park img,
+      .park-content {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">
+      <img src="logo.jpg" alt="Park Logo">
+      <span>National Parks</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="top-parks.html">Top Parks</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navBtns">
+      <a href="#" class="btn login-btn" onclick="openForm('login')">Login</a>
+      <a href="#" class="btn signup-btn" onclick="openForm('signup')">Sign Up</a>
+    </div>
+
+    <div id="welcomeUser" style="color:#ffeb3b; font-weight:600; display:none;"></div>
+  </nav>
+
+  <!-- POPUP FORM -->
+  <div class="popup-container" id="popup">
+    <!-- LOGIN FORM -->
+    <div class="form-box" id="loginForm">
+      <span class="close-btn" onclick="closeForm()">×</span>
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="loginUser()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="toggleForm('signup')">Sign Up</a></p>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div class="form-box" id="signupForm" style="display:none;">
+      <span class="close-btn" onclick="closeForm()">×</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button onclick="signupUser()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
+    </div>
+  </div>
+
+  <!-- SUCCESS MESSAGE -->
+  <div class="popup-message" id="popupMessage"></div>
+
+  <script>
+    // Open popup
+    function openForm(type) {
+      document.getElementById('popup').style.display = 'flex';
+      document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = type === 'signup' ? 'block' : 'none';
+    }
+
+    // Close popup
+    function closeForm() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // Toggle between login and signup
+    function toggleForm(type) {
+      document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = type === 'signup' ? 'block' : 'none';
+    }
+
+    // Show popup message
+    function showMessage(msg, color = "#4caf50") {
+      const box = document.getElementById('popupMessage');
+      box.style.background = color;
+      box.textContent = msg;
+      box.style.display = 'block';
+      setTimeout(() => box.style.display = 'none', 3000);
+    }
+
+    // Signup Function
+    function signupUser() {
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+
+      if (!name || !email || !password) {
+        showMessage("Please fill all fields", "#e53935");
+        return;
+      }
+
+      const user = { name, email, password };
+      localStorage.setItem("userData", JSON.stringify(user));
+      showMessage("Signup Successful! Please Login.");
+      toggleForm('login');
+    }
+
+    // Login Function
+    function loginUser() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      const savedUser = JSON.parse(localStorage.getItem("userData"));
+
+      if (savedUser && savedUser.email === email && savedUser.password === password) {
+        localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
+        showWelcome(savedUser.name);
+        closeForm();
+        showMessage(`Welcome ${savedUser.name}!`);
+      } else {
+        showMessage("Invalid email or password!", "#e53935");
+      }
+    }
+
+    // Show welcome and hide login buttons
+    function showWelcome(name) {
+      document.getElementById('navBtns').style.display = 'none';
+      const welcome = document.getElementById('welcomeUser');
+      welcome.innerHTML = `Welcome, ${name}! 🌿 <button class="logout-btn" onclick="logoutUser()">Logout</button>`;
+      welcome.style.display = 'block';
+    }
+
+    // Logout function
+    function logoutUser() {
+      localStorage.removeItem("loggedInUser");
+      document.getElementById('welcomeUser').style.display = 'none';
+      document.getElementById('navBtns').style.display = 'flex';
+      showMessage("Logged out successfully.", "#e53935");
+    }
+
+    // Check login status on page load
+    window.onload = function() {
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (user) {
+        showWelcome(user.name);
+      }
+    }
+  </script>
+  <h1>Top National Parks to Explore</h1>
+  <div class="parks-container"> 
+    <!-- 1 Yellowstone -->
+    <div class="park">
+      <img src="yellowstone top park.jpg" alt="Yellowstone National Park">
+      <div class="park-content">
+        <h2>Yellowstone National Park</h2>
+        <p>
+          Yellowstone National Park is among the top parks to explore because it is the <b>world’s first national park</b>, established in <b>1872</b>, and it offers an incredible variety of <b>geysers</b>, <b>hot springs</b>, <b>waterfalls</b>, and <b>wildlife</b>. Its vast and unique landscape — shaped by <b>volcanic activity</b> — makes it one of the most <b>extraordinary natural wonders</b> on Earth. Visitors can experience <b>scenic beauty</b>, <b>rich history</b>, and <b>diverse ecosystems</b>, all in one place, which is why Yellowstone remains a <b>top destination</b> for <b>nature lovers</b> and <b>explorers</b> worldwide.
+        </p>
+      </div>
+    </div>
+    <!-- 2 Yosemite -->
+    <div class="park">
+      <img src="yosemite top park.jpg" alt="Yosemite National Park">
+      <div class="park-content">
+        <h2>Yosemite National Park</h2>
+        <p>
+         Yosemite National Park stands out as a <b>top travel destination</b> for its <b>towering granite cliffs</b>, <b>giant sequoia trees</b>, and <b>stunning waterfalls</b> like <b>Yosemite Falls</b>. Known for its <b>iconic landmarks</b> such as <b>El Capitan</b> and <b>Half Dome</b>, the park is a paradise for <b>photographers</b>, <b>hikers</b>, and <b>nature enthusiasts</b>. Its <b>diverse ecosystems</b> and <b>unmatched beauty</b> make Yosemite a symbol of <b>America’s natural heritage</b>.
+        </p>  
+      </div>
+    </div>
+    <!-- 3️⃣ Banff -->
+    <div class="park">
+      <img src="banff.jpg" alt="Banff National Park">
+      <div class="park-content">
+        <h2>Banff National Park</h2>
+        <p>
+          Banff National Park, located in the <b>Canadian Rockies</b>, is famous for its <b>turquoise lakes</b>, <b>snow-capped peaks</b>, and <b>wildlife</b>. It’s one of the most <b>picturesque destinations</b> in the world, offering visitors the chance to explore <b>glaciers</b>, <b>hot springs</b>, and <b>majestic valleys</b>. The park’s <b>vibrant blue Lake Louise</b> and <b>breathtaking mountain views</b> make Banff a <b>top choice for adventure seekers</b> and <b>nature lovers</b> alike.
+        </p> 
+      </div>
+    </div>
+    <!-- 4️⃣ Acadia -->
+    <div class="park">
+      <img src="acadia top park.jpg" alt="Acadia National Park">
+      <div class="park-content">
+        <h2>Acadia National Park</h2>
+        <p>
+          Acadia National Park is one of the <b>top parks to explore</b> because of its <b>breathtaking coastal scenery</b>, <b>rocky beaches</b>, and <b>majestic mountains</b> like <b>Cadillac Mountain</b>, the first place in the U.S. to see the sunrise. It beautifully combines <b>ocean views</b>, <b>forests</b>, and <b>wildlife</b>, offering an unforgettable connection with nature. Its <b>tranquil landscapes</b> and <b>hiking trails</b> make it a <b>perfect destination</b> for those who love peace and natural beauty.
+        </p> 
+      </div>
+    </div>
+
+  </div>
+
+<footer>
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="footer-text">
+        © 2025 National Park Explorer | All Rights Reserved
+      </div>
+    </footer>
+  <style>
+    
+    .footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Icon styling */
+    .social-icons a {
+      text-decoration: none;
+      color: white;
+      font-size: 28px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 50%;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    /* Individual colors */
+    .social-icons .facebook {
+      background-color: #3b5998;
+    }
+
+    .social-icons .instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .social-icons .youtube {
+      background-color: #ff0000;
+    }
+
+    /* Hover effect */
+    .social-icons a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+      
+  </style>
+  </footer>
+
+</body>
+</html>

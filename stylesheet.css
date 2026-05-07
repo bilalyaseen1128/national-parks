@@ -1,0 +1,39 @@
+/* ===== Leaflet Map Section Styling ===== */
+.map-section {
+  text-align: center;
+  background: #f7f7f2; /* soft natural tone */
+  padding: 60px 0;
+}
+
+.map-heading h2 {
+  font-size: 2rem;
+  color: #2e4a2c; /* forest green */
+  margin-bottom: 10px;
+}
+
+.map-heading i {
+  color: #d4af37; /* golden accent */
+  margin-right: 8px;
+}
+
+.map-heading p {
+  color: #555;
+  max-width: 650px;
+  margin: 0 auto 25px auto;
+  font-size: 1rem;
+}
+
+#yosemiteMap {
+  height: 450px;
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#yosemiteMap:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}

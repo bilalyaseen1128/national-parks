@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOCUMENT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<style>
+  body {
+    background-color: beige;
+    color: #123;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+  }
+
+  
+
+    /* ===== NAVBAR ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #2e7d32;
+      padding: 10px 20px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* LINKS */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: #ffeb3b;
+    }
+
+    /* BUTTONS */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .login-btn {
+      background-color: #fff;
+      color: #2e7d32;
+    }
+
+    .signup-btn {
+      background-color: #ffeb3b;
+      color: #000;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    /* HAMBURGER ICON */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      transition: 0.3s;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links,
+      .nav-buttons {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #388e3c;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links.show,
+      .nav-buttons.show {
+        display: flex;
+      }
+
+      .nav-links li {
+        padding: 10px 0;
+      }
+
+      .nav-buttons a {
+        width: 80%;
+        margin: 5px auto;
+      }
+
+      #welcomeUser {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+      }
+    }
+  
+
+  .btn {
+    text-decoration: none;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    transition: 0.3s ease;
+    border: 2px solid transparent;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .login-btn {
+    background: #ffb300;
+    text-align: right;
+  }
+
+  .login-btn:hover {
+    background: transparent;
+    border-color: #ffb300;
+    color: #ffb300;
+  }
+
+  .signup-btn {
+    background: #e53935;
+    text-align: right;
+  }
+
+  .signup-btn:hover {
+    background: transparent;
+    border-color: #e53935;
+    color: #e53935;
+  }
+
+  /* ====== POPUP FORM ====== */
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .form-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .form-box h2 {
+    color: #2e4e27;
+    margin-bottom: 20px;
+  }
+
+  .form-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .form-box button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #2e4e27;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .form-box button:hover {
+    background: #446c39;
+  }
+
+  .form-box p {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .form-box a {
+    color: #e53935;
+    text-decoration: none;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  /* Popup Message */
+  .popup-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4caf50;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+    z-index: 3000;
+    animation: slideDown 0.4s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .logout-btn {
+    color: white;
+    background: #e53935;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: 0.3s;
+  }
+
+  .logout-btn:hover {
+    background: #b71c1c;
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    nav {
+      flex-wrap: wrap;
+      padding: 15px;
+    }
+
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-buttons {
+      margin-top: 10px;
+    }
+  }
+
+
+  h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 60px;
+    font-style: italic;
+  }
+
+  h2 {
+    color: rgb(35, 71, 35);
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+  }
+
+  p {
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .logo {
+    position: static;
+    margin-bottom: 10px;
+  }
+
+  .nav-links {
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 18px;
+  }
+
+  /* Footer styling */
+  footer {
+    background-color: #0d2015;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+  }
+
+  .social-links {
+    margin-top: 15px;
+  }
+
+  .social-links a {
+    color: white;
+    font-size: 28px;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffd166;
+    transform: scale(1.2);
+  }
+
+  .footer-text {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #bbb;
+  }
+
+  /* h1 tag css */
+  h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 60px;
+    font-style: italic;
+
+  }
+
+  h2 {
+    color: rgb(226, 236, 226);
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+
+  }
+
+  p {
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+</style>
+
+<body>
+
+  <nav>
+    <div class="logo">
+      <img src="logo.jpg" alt="Park Logo">
+      <span>National Parks</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="top-parks.html">Top Parks</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navBtns">
+      <a href="#" class="btn login-btn" onclick="openForm('login')">Login</a>
+      <a href="#" class="btn signup-btn" onclick="openForm('signup')">Sign Up</a>
+    </div>
+
+    <div id="welcomeUser" style="color:#ffeb3b; font-weight:600; display:none;"></div>
+  </nav>
+
+  <div class="popup-container" id="popup">
+   
+    <div class="form-box" id="loginForm">
+      <span class="close-btn" onclick="closeForm()">×</span>
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="loginUser()">Login</button>
+      <p>Don't have an account? <a href="#" onclick="toggleForm('signup')">Sign Up</a></p>
+    </div>
+
+    <div class="form-box" id="signupForm" style="display:none;">
+      <span class="close-btn" onclick="closeForm()">×</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button onclick="signupUser()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
+    </div>
+  </div>
+
+  <div class="popup-message" id="popupMessage"></div>
+
+  <script>
+  
+    function openForm(type) {
+      document.getElementById('popup').style.display = 'flex';
+      document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = type === 'signup' ? 'block' : 'none';
+    }
+
+    
+    function closeForm() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    function toggleForm(type) {
+      document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = type === 'signup' ? 'block' : 'none';
+    }
+
+    function showMessage(msg, color = "#4caf50") {
+      const box = document.getElementById('popupMessage');
+      box.style.background = color;
+      box.textContent = msg;
+      box.style.display = 'block';
+      setTimeout(() => box.style.display = 'none', 3000);
+    }
+
+    function signupUser() {
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+
+      if (!name || !email || !password) {
+        showMessage("Please fill all fields", "#e53935");
+        return;
+      }
+
+      const user = { name, email, password };
+      localStorage.setItem("userData", JSON.stringify(user));
+      showMessage("Signup Successful! Please Login.");
+      toggleForm('login');
+    }
+
+    function loginUser() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      const savedUser = JSON.parse(localStorage.getItem("userData"));
+
+      if (savedUser && savedUser.email === email && savedUser.password === password) {
+        localStorage.setItem("loggedInUser", JSON.stringify(savedUser));
+        showWelcome(savedUser.name);
+        closeForm();
+        showMessage(`Welcome ${savedUser.name}!`);
+      } else {
+        showMessage("Invalid email or password!", "#e53935");
+      }
+    }
+
+    // Show welcome and hide login buttons
+    function showWelcome(name) {
+      document.getElementById('navBtns').style.display = 'none';
+      const welcome = document.getElementById('welcomeUser');
+      welcome.innerHTML = `Welcome, ${name}! 🌿 <button class="logout-btn" onclick="logoutUser()">Logout</button>`;
+      welcome.style.display = 'block';
+    }
+
+    // Logout function
+    function logoutUser() {
+      localStorage.removeItem("loggedInUser");
+      document.getElementById('welcomeUser').style.display = 'none';
+      document.getElementById('navBtns').style.display = 'flex';
+      showMessage("Logged out successfully.", "#e53935");
+    }
+
+    // Check login status on page load
+    window.onload = function () {
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (user) {
+        showWelcome(user.name);
+      }
+    }
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Explore the Beauty of National Parks</h2>
+      <p>Discover nature, history, and wildlife across the world’s most breathtaking parks.</p>
+      <div class="hero-img">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Introduction -->
+  <section class="intro">
+    <h2>Welcome to National Parks</h2>
+    <p class="para">
+      Our mission is to showcase the history,
+      wildlife,and natural wonders of the most famous
+      national parks.Learn about their past, explore their
+      beauty,and plan your next adventure.
+    </p>
+  </section>
+
+  <!-- Top Parks Cards -->
+  <section class="parks">
+    <h2 class="heading">TOP 10 NATIONAL PARKS</h2>
+    <div class="card-container">
+      <a href="yellowstone.html" class="card">
+        <img src="yellowstone.jpg" alt="Yellowstone National Park">
+        <div class="card-text">
+          <h3>Yellowstone National Park</h3>
+          <p>See Photos</p>
+        </div>
+      </a>
+
+      <a href="acadia2.html" class="card">
+        <img src="acadia.jpg" alt="Acadia National Park">
+        <div class="card-text">
+          <h3>Acadia National Park</h3>
+          <p>See Photos</p>
+        </div>
+
+        <a href="yala.html" class="card">
+          <img src="yala.jpg" alt="Yala National Park">
+          <div class="card-text">
+            <h3>Yala National Park</h3>
+            <p>See Photos</p>
+          </div>
+
+          <a href="massaimara.html" class="card">
+            <img src="massai.jpg" alt="Massai Mara National Park">
+            <div class="card-text">
+              <h3>Massai Mara National Park</h3>
+              <p>See Photos</p>
+            </div>
+
+            <a href="kruger.html" class="card">
+              <img src="kruger.jpg" alt="Kruger National Park">
+              <div class="card-text">
+                <h3>Kruger National Park</h3>
+                <p>See Photos</p>
+              </div>
+
+              <a href="yosmetti.html" class="card">
+                <img src="yometti.jpg" alt="Yosemite National Park">
+                <div class="card-text">
+                  <h3>Yosemite National Park</h3>
+                  <p>See Photos</p>
+                </div>
+              </a>
+
+              <a href="kakadu.html" class="card">
+                <img src="kakadu.jpg" alt="Kakadu National Park">
+                <div class="card-text">
+                  <h3>Kakadu National Park</h3>
+                  <p>See Photos</p>
+                </div>
+
+                <a href="banff.html" class="card">
+                  <img src="banff.jpg" alt="Banff National Park">
+                  <div class="card-text">
+                    <h3>Banff National Park</h3>
+                    <p>See Photos</p>
+                  </div>
+
+                  <a href="chitwan.html" class="card">
+                    <img src="chitwan.jpg" alt="Chitwan National Park">
+                    <div class="card-text">
+                      <h3>Chitwan National Park</h3>
+                      <p>See Photos</p>
+                    </div>
+                  </a>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Follow Us</h3>
+    <div class="social-links">
+      <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="footer-text">
+      © 2025 National Park Explorer | All Rights Reserved
+    </div>
+  </footer>
+
+
+  </div>
+</body>
+
+</html>

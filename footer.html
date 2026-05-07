@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Icons</title>
+  
+
+  <!-- Font Awesome CDN (for icons) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <style>
+    /* Basic reset and layout */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* Icon styling */
+    .social-icons a {
+      text-decoration: none;
+      color: white;
+      font-size: 28px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    /* Individual colors */
+    .social-icons .facebook {
+      background-color: #3b5998;
+    }
+
+    .social-icons .instagram {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .social-icons .youtube {
+      background-color: #ff0000;
+    }
+
+    /* Hover effect */
+    .social-icons a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="social-icons">
+    <a href="https://www.facebook.com/yourpage" target="_blank" class="facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://www.instagram.com/yourprofile" target="_blank" class="instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://www.youtube.com/yourchannel" target="_blank" class="youtube">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </div>
+</body>
+</html>

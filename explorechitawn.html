@@ -1,0 +1,719 @@
+x<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chitawn  National Park History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+       background-image: url('chitwan.jg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+/* ===== NAVBAR ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #2e7d32;
+      padding: 10px 20px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* LINKS */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: #ffeb3b;
+    }
+
+    /* BUTTONS */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .login-btn {
+      background-color: #fff;
+      color: #2e7d32;
+    }
+
+    .signup-btn {
+      background-color: #ffeb3b;
+      color: #000;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    /* HAMBURGER ICON */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      transition: 0.3s;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links,
+      .nav-buttons {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #388e3c;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links.show,
+      .nav-buttons.show {
+        display: flex;
+      }
+
+      .nav-links li {
+        padding: 10px 0;
+      }
+
+      .nav-buttons a {
+        width: 80%;
+        margin: 5px auto;
+      }
+
+      #welcomeUser {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+      }
+    }
+  
+
+  .btn {
+    text-decoration: none;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    transition: 0.3s ease;
+    border: 2px solid transparent;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .login-btn {
+    background: #ffb300;
+    text-align: right;
+  }
+
+  .login-btn:hover {
+    background: transparent;
+    border-color: #ffb300;
+    color: #ffb300;
+  }
+
+  .signup-btn {
+    background: #e53935;
+    text-align: right;
+  }
+
+  .signup-btn:hover {
+    background: transparent;
+    border-color: #e53935;
+    color: #e53935;
+  }
+
+  /* ====== POPUP FORM ====== */
+  .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .form-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .form-box h2 {
+    color: #2e4e27;
+    margin-bottom: 20px;
+  }
+
+  .form-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .form-box button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #2e4e27;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .form-box button:hover {
+    background: #446c39;
+  }
+
+  .form-box p {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .form-box a {
+    color: #e53935;
+    text-decoration: none;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  /* Popup Message */
+  .popup-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4caf50;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+    z-index: 3000;
+    animation: slideDown 0.4s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .logout-btn {
+    color: white;
+    background: #e53935;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: 0.3s;
+  }
+
+  .logout-btn:hover {
+    background: #b71c1c;
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    nav {
+      flex-wrap: wrap;
+      padding: 15px;
+    }
+
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-buttons {
+      margin-top: 10px;
+    }
+  }
+
+
+  h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 60px;
+    font-style: italic;
+  }
+
+  h2 {
+    color: rgb(35, 71, 35);
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+  }
+
+  p {
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+    h1 {
+      color: whitesmoke;
+      text-align: center;
+      font-size: 60px;
+      font-style: oblique;
+      margin-top: 40px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 100px;
+      color: black;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+    }
+
+    .content p {
+      line-height: 1.8;
+      text-align: justify;
+      font-size: 16px;
+      font-style: italic;
+      color: #333;
+    }
+
+    /* ✅ Review Section Styling */
+    .reviews-section {
+  margin-top: 50px;
+  background-color: rgb(29, 44, 29);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.reviews-section h3 {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: #fffcfc;
+  margin-bottom: 25px;
+  font-size: 50px;
+}
+
+/* Each review box */
+.review {
+  background-color: rgb(255, 246, 246);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 5px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.review-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.review-author {
+  font-weight: bold;
+  color: #555;
+  text-align: right;
+  margin-top: 10px;
+}
+
+/* Submit Review Section */
+.submit-review {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.submit-review h4 {
+  font-size: 22px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+/* Star Rating */
+.rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.star {
+  font-size: 35px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s;
+  margin: 0 5px;
+  background-color: white;
+}
+
+.star:hover,
+.star.selected {
+  color: gold;
+  transform: scale(1.2);
+}
+
+/* Review Textarea + Button */
+.submit-review textarea {
+  width: 60%;
+  max-width: 600px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  resize: none;
+  transition: 0.3s;
+}
+.submit-review h4{
+  color: #f5efef;
+  
+}
+
+.submit-review textarea:focus {
+  border-color: #1a4d2e;
+  box-shadow: 0 0 5px rgba(26, 77, 46, 0.4);
+  outline: none;
+}
+
+.submit-btn {
+  margin-top: 15px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  background-color: #1a4d2e;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #ffd166;
+  color: #1a4d2e;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Toast Notification */
+.toast {
+  visibility: hidden;
+  min-width: 300px;
+  background-color: #1a4d2e;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 15px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-size: 16px;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
+
+
+    @media (max-width: 800px) {
+  h2 {
+    font-size: 60px;
+  }
+}
+
+footer {
+    background-color: #0d2015;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+  }
+
+  .social-links {
+    margin-top: 15px;
+  }
+
+  .social-links a {
+    color: white;
+    font-size: 28px;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffd166;
+    transform: scale(1.2);
+  }
+
+  .footer-text {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #bbb;
+  }
+
+  /* h1 tag css */
+  h1 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 60px;
+    font-style: italic;
+  }
+
+  h2 {
+    color: rgb(226, 236, 226);
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+  }
+  p {
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <img src="logo.jpg" alt="Park Logo">
+      <span>National Parks</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="top-parks.html">Top Parks</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navBtns">
+      <a href="#" class="btn login-btn" onclick="openForm('login')">Login</a>
+      <a href="#" class="btn signup-btn" onclick="openForm('signup')">Sign Up</a>
+    </div>
+
+    <div id="welcomeUser" style="color:#ffeb3b; font-weight:600; display:none;"></div>
+  </nav>
+
+  <h1>Explore The History Of Chitawn</h1>
+  <h2>A Brief History</h2>
+
+  <div class="content">
+    <p>
+     Today, Chitwan National Park stands as a UNESCO World Heritage Site, recognized for its remarkable biodiversity and conservation success. It has become a symbol of harmony between humans and nature, where local communities now play an active role in protecting wildlife. The park attracts thousands of visitors each year who come to experience its lush jungles, river safaris, and rare animal sightings, keeping alive the legacy of Nepal’s first and finest national park. 
+  </div>
+
+  <div class="content">
+    <p>
+     n 1973, Chitwan was officially declared Nepal’s first national park, marking a major milestone in the country’s conservation history. The establishment of the park helped protect endangered species such as the one-horned rhinoceros and the Bengal tiger. With the support of international organizations, anti-poaching units and wildlife management programs were introduced, which significantly improved the park’s ecosystem and animal populations. 
+    </p>
+  </div>
+
+  
+  
+  <section class="reviews-section">
+  <h3>Visitor Reviews</h3>
+
+  <div class="review">
+    <p class="review-text">“For nature- and wildlife-lovers … an absolute top-spot … We saw … black bear at the roadside.”.”</p>
+    <p class="review-author">— usama R., USA ⭐⭐⭐⭐⭐</p>
+  </div>
+
+  <div class="review">
+    <p class="review-text">““Unforgettable experience. … full day hike and meeting wildlife rhinos was mind-blowing. I highly recommend 👌.”</p>
+    <p class="review-author">—  jerrry-K., australlia ⭐⭐⭐⭐☆</p>
+  </div>
+
+  <div class="review">
+    <p class="review-text"> “Visiting Chitwan National Park was an unforgettable experience with so many different species of wild life. Saw so many one-horned Rhinos”</p>
+    <p class="review-author">— Sophie L., France ⭐⭐⭐⭐⭐</p>
+  </div>
+
+  <!-- Submit Review Section -->
+  <div class="submit-review">
+    <h4>Share Your Experience</h4>
+
+    <!-- Star Rating -->
+    <div class="rating">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+
+    <textarea id="userReview" placeholder="Write your review here..." rows="4"></textarea><br>
+    <button class="submit-btn" onclick="showToast()">Submit Review</button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">✅ Thank you! Your review has been submitted.</div>
+</section>
+
+<script>
+  let currentRating = 0;
+  const stars = document.querySelectorAll('.star');
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      currentRating = star.getAttribute('data-value');
+      stars.forEach(s => s.classList.remove('selected'));
+      for (let i = 0; i < currentRating; i++) {
+        stars[i].classList.add('selected');
+      }
+    });
+  });
+
+  function showToast() {
+    const toast = document.getElementById("toast");
+    const reviewText = document.getElementById("userReview").value.trim();
+
+    if (reviewText === "") {
+      toast.textContent = "⚠️ Please write something before submitting!";
+      toast.style.backgroundColor = "#ff4d4d";
+    } else if (currentRating === 0) {
+      toast.textContent = "⭐ Please give a rating before submitting!";
+      toast.style.backgroundColor = "#ffae42";
+    } else {
+      toast.textContent = "✅ Thank you! Your review has been submitted.";
+      toast.style.backgroundColor = "#1a4d2e";
+      document.getElementById("userReview").value = "";
+      stars.forEach(s => s.classList.remove("selected"));
+      currentRating = 0;
+    }
+
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+</script>
+
+<footer>
+    <h3>Follow Us</h3>
+    <div class="social-links">
+      <a href="https://www.facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="footer-text">
+      © 2025 National Park Explorer | All Rights Reserved
+    </div>
+  </footer>
+
+</body>
+</html>
